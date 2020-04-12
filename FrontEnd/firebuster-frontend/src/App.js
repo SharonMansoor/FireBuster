@@ -17,7 +17,7 @@ function App() {
             Fire Buster
           </Typography>
           <Tabs>
-            <Tab color="inherit" href={"/"} label='Alerts'/>
+            <Tab color="inherit" href={"/"} label='Alert'/>
             <Tab color="inherit" href={"/ReportWildfire"} label="Report Wildfire" index={1} />
             <Tab color="inherit" href={"/Statistics"} label="Statistics" index={2} />
           </Tabs>
