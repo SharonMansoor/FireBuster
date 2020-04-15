@@ -11,9 +11,7 @@ class AlertsBar extends Component {
         style={{ height: "100%" }}
       >
           <Grid container >
-              <Grid item><Alert/></Grid>
-              <Grid item><Alert/></Grid>
-              <Grid item><Alert/></Grid>
+            {this.props.alerts.map(alert => <Grid item><Alert alert={alert}/></Grid>)}
           </Grid>
       </Box>
     );
