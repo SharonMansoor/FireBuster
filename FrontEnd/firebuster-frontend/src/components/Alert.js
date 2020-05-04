@@ -15,7 +15,7 @@ class Alert extends Component {
         <Grid container direction="row" spacing={1}>
           <Grid item md={7}>
             <Typography style={{ fontWeight: "600" }}>Location</Typography>
-            <Typography>{this.props.alert.location}</Typography>
+            <Typography>{this.props.alert.locationLAT + ", " + this.props.alert.locationLG}</Typography>
           </Grid>
           <Grid item md={5}>
             <Typography style={{ fontWeight: "600" }}>Severity</Typography>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import AlertsBar from '../components/AlertsBar';
-import alerts from "../TempData/Alerts"
+import alerts from "../TempData/Alerts";
+import MapAlerts from "../components/MapAlerts";
 
 class AlertsPage extends Component {
   render() {
@@ -10,7 +11,9 @@ class AlertsPage extends Component {
           <Grid item md={3} style={{overflowY: 'auto', height: '100%',  backgroundColor: "#eeeeee"}}>
             <AlertsBar alerts={alerts}/>
           </Grid>
-          <Grid item md={9}></Grid>
+          <Grid item md={9} style={{height: '100%'}}>
+            <MapAlerts alerts={alerts}/>
+          </Grid>
         </Grid>
     );
   }

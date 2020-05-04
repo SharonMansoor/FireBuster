@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import ReportFireForm from "../components/ReportFireForm";
+import MapReport from "../components/MapReport"
 
 class ReportWildFirePage extends Component {
   render() {
@@ -22,7 +23,9 @@ class ReportWildFirePage extends Component {
         >
           <ReportFireForm/>
         </Grid>
-        <Grid item md={9}></Grid>
+        <Grid item md={9} style={{height: '100%'}}>
+            <MapReport/>
+          </Grid>
       </Grid>
     );
   }
