@@ -11,8 +11,15 @@ export class MapReport extends Component {
           lat: 32.736029,
           lng: 35.058554,
         }}
+        onClick={this.props.handleMapClick}
       >
-       
+       {this.props.location &&
+       <Marker
+       position={this.props.location}
+       onClick={this.onMarkerClick}
+       icon="..\images\fireAlert.png"
+       />
+       }
       </Map>
     );
   }

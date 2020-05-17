@@ -54,7 +54,7 @@ export class MapAlerts extends Component {
 
         {this.props.alerts.map((alert) => (
           <Marker
-            position={{ lat: alert.location.lat, lng: alert.location.lng }}
+            position={alert.location}
             onClick={this.onMarkerClick}
             icon="..\images\fireAlert.png"
           />

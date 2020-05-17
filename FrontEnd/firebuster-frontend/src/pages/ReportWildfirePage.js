@@ -16,6 +16,7 @@ class ReportWildFirePage extends Component {
       moreInfo: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
   }
 
   handleChange(event) {
@@ -23,6 +24,15 @@ class ReportWildFirePage extends Component {
     type === "checkbox"
       ? this.setState({ [name]: checked })
       : this.setState({ [name]: value });
+  }
+
+  handleMapClick(t, map, coord){
+    console.log(coord.latLng.lat());
+    const newLocation ={
+      lat: coord.latLng.lat(),
+      lng: coord.latLng.lng()
+    };
+    this.setState({location: newLocation});
   }
 
   render() {
@@ -45,7 +55,7 @@ class ReportWildFirePage extends Component {
           <ReportFireForm handleChange={this.handleChange} state={this.state}/>
         </Grid>
         <Grid item md={9} style={{height: '100%'}}>
-            <MapReport/>
+            <MapReport  handleMapClick={this.handleMapClick} location={this.state.location}/>
           </Grid>
       </Grid>
     );
