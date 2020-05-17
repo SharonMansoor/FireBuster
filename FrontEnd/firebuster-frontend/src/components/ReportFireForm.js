@@ -42,23 +42,7 @@ const causes = [
 ];
 
 class ReportFireForm extends Component {
-  constructor() {
-    super();
-    this.state = {
-      location: "",
-      intensity: "",
-      cause: "",
-      moreInfo: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
 
-  handleChange(event) {
-    const { name, value, type, checked } = event.target;
-    type === "checkbox"
-      ? this.setState({ [name]: checked })
-      : this.setState({ [name]: value });
-  }
 
   render() {
     return (
@@ -67,9 +51,9 @@ class ReportFireForm extends Component {
           <Grid container spacing={3}>
             <Grid item md={12}>
               <TextField
-                value={this.state.location}
+                value={this.props.state.location.lat + ', ' + this.props.state.location.lng }
                 name="location"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 label="Location"
                 fullWidth
                 placeholder="Choose from map"
@@ -81,9 +65,9 @@ class ReportFireForm extends Component {
               <FormControl fullWidth>
                 <InputLabel id="intensityLabel">Intensity</InputLabel>
                 <Select
-                  value={this.state.intensity}
+                  value={this.props.state.intensity}
                   name="intensity"
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   labelId="intensityLabel"
                 >
                   {severities.map((option) => (
@@ -98,9 +82,9 @@ class ReportFireForm extends Component {
               <FormControl fullWidth>
                 <InputLabel id="causeLabel">Cause</InputLabel>
                 <Select
-                  value={this.state.cause}
+                  value={this.props.state.cause}
                   name="cause"
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   labelId="causeLabel"
                 >
                   {causes.map((option) => (
@@ -112,7 +96,7 @@ class ReportFireForm extends Component {
               </FormControl>
             </Grid>
             <Grid item md={12}>
-              <TextField multiline label="More Information" fullWidth />
+              <TextField multiline label="More Information" fullWidth onChange={this.props.handleChange}/>
             </Grid>
             <Grid item md={12}>
             <Fab color='secondary' size='medium' style={{float:'right'}}>

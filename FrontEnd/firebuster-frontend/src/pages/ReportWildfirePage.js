@@ -4,6 +4,27 @@ import ReportFireForm from "../components/ReportFireForm";
 import MapReport from "../components/MapReport"
 
 class ReportWildFirePage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      location: {
+        lat: 32.736029,
+        lng: 35.058554,
+      },
+      intensity: "",
+      cause: "",
+      moreInfo: "",
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value, type, checked } = event.target;
+    type === "checkbox"
+      ? this.setState({ [name]: checked })
+      : this.setState({ [name]: value });
+  }
+
   render() {
     return (
       <Grid
@@ -21,7 +42,7 @@ class ReportWildFirePage extends Component {
             backgroundColor: "#eeeeee",
           }}
         >
-          <ReportFireForm/>
+          <ReportFireForm handleChange={this.handleChange} state={this.state}/>
         </Grid>
         <Grid item md={9} style={{height: '100%'}}>
             <MapReport/>
