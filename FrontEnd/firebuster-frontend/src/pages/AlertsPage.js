@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import AlertsBar from '../components/AlertsBar/AlertsBar';
 import alerts from "../TempData/Alerts";
 import MapAlerts from "../components/MapAlerts";

@@ -6,12 +6,12 @@ import './AlertsBar.css';
 class AlertsBar extends Component {
   render() {
     return (
-      <Box item md={3} style={{ height: "100%" }}>
+      <Box style={{ height: "100%" }}>
         <Grid container>
           {this.props.alerts.map((alert) => (
-            <Grid item>
+            <Grid item key={alert.id}>
               <Paper
-              className={`alert ${this.props.currAlert.id==alert.id ? 'selectedAlert' : null}`}
+                className={`alert ${this.props.currAlert.id===alert.id ? 'selectedAlert' : null}`}
                 elevation={3}
                 style={{
                   backgroundColor: "#fafafa",
@@ -20,7 +20,7 @@ class AlertsBar extends Component {
                 }}
                 onClick={() => this.props.handleAlertClick(alert)}
               >
-                <Alert key={alert.id} alert={alert} />
+                <Alert alert={alert} />
               </Paper>
             </Grid>
           ))}

@@ -26,6 +26,7 @@ export class MapAlerts extends Component {
       >
         {this.props.alerts.map((alert) => (
           <Polygon
+            key={alert.id}
             paths={[
               {
                 lat: this.calcLat(alert.location.lat),
@@ -54,6 +55,7 @@ export class MapAlerts extends Component {
 
         {this.props.alerts.map((alert) => (
           <Marker
+            key={alert.id}
             position={alert.location}
             onClick={this.onMarkerClick}
             icon="..\images\fireAlert.png"

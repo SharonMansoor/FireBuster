@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "typeface-roboto";
-import { AppBar, Toolbar, Tabs, Typography, Tab, ThemeProvider } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, ThemeProvider, Button } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ReportWildFirePage from "./pages/ReportWildfirePage";
 import StatisticsPage from "./pages/StatisticsPage";
@@ -18,11 +18,9 @@ function App() {
           <Typography variant="h4" style={{ marginRight: "30px", fontWeight:'500' }}>
             Fire Buster
           </Typography>
-          <Tabs>
-            <Tab color="inherit" href={"/"} label='Alerts'/>
-            <Tab color="inherit" href={"/ReportWildfire"} label="Report Wildfire" index={1} />
-            <Tab color="inherit" href={"/Statistics"} label="Statistics" index={2} />
-          </Tabs>
+            <Button color="inherit" href={"/"}>Alerts</Button>
+            <Button color="inherit" href={"/ReportWildfire"}>Report Wildfire</Button>
+            <Button color="inherit" href={"/Statistics"}>Statistics</Button>
         </Toolbar>
       </AppBar>
       <Switch>
