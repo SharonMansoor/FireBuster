@@ -17,7 +17,6 @@ export class MapReport extends Component {
           {this.props.location && (
             <Marker
               position={this.props.location}
-              onClick={this.onMarkerClick}
               icon="..\images\fireAlert.png"
             />
           )}
