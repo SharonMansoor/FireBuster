@@ -7,10 +7,7 @@ class ReportWildFirePage extends Component {
   constructor() {
     super();
     this.state = {
-      location: {
-        lat: 32.736029,
-        lng: 35.058554,
-      },
+      location: "",
       intensity: "",
       cause: "",
       moreInfo: "",

@@ -51,7 +51,7 @@ class ReportFireForm extends Component {
           <Grid container spacing={3}>
             <Grid item md={12}>
               <TextField
-                value={this.props.state.location.lat + ', ' + this.props.state.location.lng }
+                value={this.props.state.location? this.props.state.location.lat + ', ' + this.props.state.location.lng : null}
                 name="location"
                 onChange={this.props.handleChange}
                 label="Location"
