@@ -18,9 +18,9 @@ function App() {
           <Typography variant="h4" style={{ marginRight: "30px", fontWeight:'500' }}>
             Fire Buster
           </Typography>
-            <Button color="inherit" href={"/"}>Alerts</Button>
-            <Button color="inherit" href={"/ReportWildfire"}>Report Wildfire</Button>
-            <Button color="inherit" href={"/Statistics"}>Statistics</Button>
+            <Button color="inherit" style={{marginLeft: '30px'}} href={"/"}>Alerts</Button>
+            <Button color="inherit" style={{marginLeft: '30px'}} href={"/ReportWildfire"}>Report Wildfire</Button>
+            <Button color="inherit" style={{marginLeft: '30px'}} href={"/Statistics"}>Statistics</Button>
         </Toolbar>
       </AppBar>
       <Switch>

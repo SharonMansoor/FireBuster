@@ -8,7 +8,7 @@ class AlertsBar extends Component {
     return (
       <Box style={{ height: "100%" }}>
         <Grid container>
-          <Typography variant='h6' style={{ margin: "15px 15px 0px 15px" }}>
+          <Typography color='primary' variant='h6' style={{ margin: "15px 15px 0px 15px" }}>
             {this.props.alerts.length!==0? 'Number of alerts: ' + this.props.alerts.length : 'There are no alerts found'}
           </Typography>
           {this.props.alerts.map((alert) => (
