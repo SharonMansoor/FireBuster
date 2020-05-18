@@ -10,7 +10,7 @@ class AlertsPage extends Component {
   constructor() {
     super();
     this.state = {
-      currAlert: alerts[0]
+      currAlert: ''
     };
     this.handleAlertClick = this.handleAlertClick.bind(this)
   }

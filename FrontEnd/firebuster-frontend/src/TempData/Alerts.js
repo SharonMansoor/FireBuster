@@ -2,8 +2,8 @@ const alerts = [
   {
     id: 1,
     location: {
-      lat: 32.736029,
-      lng: 35.058554,
+      lat: 35.990344,
+      lng: -93.083602,
     },
     severity: "High",
     time: "17.04.20 12:00AM",
@@ -12,8 +12,8 @@ const alerts = [
   {
     id: 2,
     location: {
-      lat: 32.760862,
-      lng: 35.256308,
+      lat: 37.4375,
+      lng: -112.5625,
     },
     severity: "Low",
     time: "19.04.20 22:30PM",
@@ -22,8 +22,8 @@ const alerts = [
   {
     id: 3,
     location: {
-      lat: 32.607134,
-      lng: 34.980276,
+      lat: 47.121966,
+      lng: -106.016467,
     },
     severity: "Moderate",
     time: "18.04.20 06:00AM",

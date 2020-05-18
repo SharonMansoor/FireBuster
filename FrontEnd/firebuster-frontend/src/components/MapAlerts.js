@@ -6,6 +6,11 @@ import {
   Polygon,
 } from "google-maps-react";
 
+const defaultLocation = {
+  lat: 39.806609,
+  lng: -98.340494
+}
+
 export class MapAlerts extends Component {
   calcLat = (lat) => {
     return parseFloat(lat) + (1 / 111) * 2.5;
@@ -20,9 +25,9 @@ export class MapAlerts extends Component {
       <div style={{height: 'calc(100vh - 64px)', position:'relative'}}>
       <Map
         google={this.props.google}
-        zoom={11}
-        initialCenter={this.props.currAlert.location}
-        center={this.props.currAlert.location}
+        zoom={this.props.currAlert ?  10 : 5}
+        initialCenter={this.props.currAlert ?  this.props.currAlert.location : defaultLocation}
+        center={this.props.currAlert ?  this.props.currAlert.location : defaultLocation}
       >
         {this.props.alerts.map((alert) => (
           <Polygon
