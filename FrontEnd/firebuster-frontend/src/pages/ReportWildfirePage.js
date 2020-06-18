@@ -4,6 +4,34 @@ import ReportFireForm from "../components/ReportFireForm";
 import MapReport from "../components/MapReport"
 
 class ReportWildFirePage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      location: "",
+      intensity: "",
+      cause: "",
+      moreInfo: "",
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value, type, checked } = event.target;
+    type === "checkbox"
+      ? this.setState({ [name]: checked })
+      : this.setState({ [name]: value });
+  }
+
+  handleMapClick(t, map, coord){
+    console.log(coord.latLng.lat());
+    const newLocation ={
+      lat: coord.latLng.lat(),
+      lng: coord.latLng.lng()
+    };
+    this.setState({location: newLocation});
+  }
+
   render() {
     return (
       <Grid
@@ -21,10 +49,10 @@ class ReportWildFirePage extends Component {
             backgroundColor: "#eeeeee",
           }}
         >
-          <ReportFireForm/>
+          <ReportFireForm handleChange={this.handleChange} state={this.state}/>
         </Grid>
         <Grid item md={9} style={{height: '100%'}}>
-            <MapReport/>
+            <MapReport  handleMapClick={this.handleMapClick} location={this.state.location}/>
           </Grid>
       </Grid>
     );

@@ -1,0 +1,13 @@
+.selectedAlert{ 
+    border-color: #ffca00;
+    border-width: 1.5px;
+    border-style: solid;
+}
+
+.alert:hover{
+    background-color: #69696926 !important;
+}
+
+.alert{
+    cursor: pointer;
+}

@@ -1,19 +1,63 @@
 import React, { Component } from "react";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper, Polygon } from "google-maps-react";
 
 export class MapReport extends Component {
+  calcLat = (lat) => {
+    return parseFloat(lat) + (1 / 111) * 2.5;
+  };
+
+  calcLat2 = (lat) => {
+    return parseFloat(lat) - (1 / 111) * 2.5;
+  };
+
   render() {
     return (
-      <Map
-        google={this.props.google}
-        zoom={11}
-        initialCenter={{
-          lat: 32.736029,
-          lng: 35.058554,
-        }}
-      >
-       
-      </Map>
+      <div style={{ height: "calc(100vh - 64px)", position: "relative" }}>
+        <Map
+          google={this.props.google}
+          zoom={11}
+          initialCenter={{
+            lat: 32.736029,
+            lng: 35.058554,
+          }}
+          onClick={this.props.handleMapClick}
+        >
+          {this.props.location && (
+            <Marker
+              position={this.props.location}
+              icon="..\images\fireAlert.png"
+            />
+          )}
+          {this.props.location && (
+            <Polygon
+              key={this.props.id}
+              paths={[
+                {
+                  lat: this.calcLat(this.props.location.lat),
+                  lng: this.calcLat(this.props.location.lng),
+                },
+                {
+                  lat: this.calcLat(this.props.location.lat),
+                  lng: this.calcLat2(this.props.location.lng),
+                },
+                {
+                  lat: this.calcLat2(this.props.location.lat),
+                  lng: this.calcLat2(this.props.location.lng),
+                },
+                {
+                  lat: this.calcLat2(this.props.location.lat),
+                  lng: this.calcLat(this.props.location.lng),
+                },
+              ]}
+              strokeColor="#ff1900"
+              strokeOpacity={0.8}
+              strokeWeight={2}
+              fillColor="#ff1900"
+              fillOpacity={0.35}
+            />
+          )}
+        </Map>
+      </div>
     );
   }
 }
