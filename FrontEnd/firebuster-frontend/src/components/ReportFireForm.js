@@ -8,9 +8,15 @@ import {
   FormControl,
   Grid,
   Fab,
+  Snackbar,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import AddIcon from "@material-ui/icons/Add";
 import Axios from "axios";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const severities = [
   {
@@ -43,13 +49,32 @@ const causes = [
 ];
 
 class ReportFireForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      successAlert: false,
+      errorAlert: false
+    };
+  }
+
+  handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({...this.state, successAlert: false});
+    this.setState({...this.state, errorAlert: false});
+  };
+
   submitForm = (e) => {
     e.preventDefault();
-    console.log(this.props.state);
-
     Axios.post("http://localhost:3000/postNewAlert", this.props.state)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        if (response.data === "Success") {
+          
+          this.setState({...this.state, successAlert: true});
+        }
+      })
+      .catch((error) => this.setState({...this.state, errorAlert: true}));
   };
 
   render() {
@@ -130,6 +155,32 @@ class ReportFireForm extends Component {
             </Grid>
           </Grid>
         </form>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          open={this.state.successAlert}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackBar}
+        >
+          <Alert onClose={this.handleCloseSnackBar} severity="success">
+            Reported Wildfire successfully
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          open={this.state.errorAlert}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackBar}
+        >
+          <Alert onClose={this.handleCloseSnackBar} severity="error">
+            Somthing went wrong, Please try again
+          </Alert>
+        </Snackbar>
       </Box>
     );
   }
