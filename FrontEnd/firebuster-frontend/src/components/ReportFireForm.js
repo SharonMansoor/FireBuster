@@ -9,7 +9,8 @@ import {
   Grid,
   Fab,
 } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
+import Axios from "axios";
 
 const severities = [
   {
@@ -42,7 +43,14 @@ const causes = [
 ];
 
 class ReportFireForm extends Component {
+  submitForm = (e) => {
+    e.preventDefault();
+    console.log(this.props.state);
 
+    Axios.post("http://localhost:3000/postNewAlert", this.props.state)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
 
   render() {
     return (
@@ -51,14 +59,20 @@ class ReportFireForm extends Component {
           <Grid container spacing={3}>
             <Grid item md={12}>
               <TextField
-                value={this.props.state.location? this.props.state.location.lat + ', ' + this.props.state.location.lng : null}
+                value={
+                  this.props.state.location
+                    ? this.props.state.location.lat +
+                      ", " +
+                      this.props.state.location.lng
+                    : null
+                }
                 name="location"
                 onChange={this.props.handleChange}
                 label="Location"
                 fullWidth
                 placeholder="Choose from map"
                 disabled
-                InputLabelProps={{shrink: 'true'}}
+                InputLabelProps={{ shrink: "true" }}
               />
             </Grid>
             <Grid item md={12}>
@@ -96,12 +110,23 @@ class ReportFireForm extends Component {
               </FormControl>
             </Grid>
             <Grid item md={12}>
-              <TextField multiline label="More Information" fullWidth onChange={this.props.handleChange}/>
+              <TextField
+                multiline
+                label="More Information"
+                name="moreInfo"
+                fullWidth
+                onChange={this.props.handleChange}
+              />
             </Grid>
             <Grid item md={12}>
-            <Fab color='secondary' size='medium' style={{float:'right'}}>
-              <AddIcon/>
-          </Fab>
+              <Fab
+                color="secondary"
+                size="medium"
+                style={{ float: "right" }}
+                onClick={this.submitForm}
+              >
+                <AddIcon />
+              </Fab>
             </Grid>
           </Grid>
         </form>
