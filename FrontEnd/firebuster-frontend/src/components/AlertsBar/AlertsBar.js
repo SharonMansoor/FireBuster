@@ -23,7 +23,7 @@ class AlertsBar extends Component {
                 style={{
                   backgroundColor: "#fafafa",
                   padding: "5px",
-                  margin: "15px 15px 0px 15px",
+                  margin: "0px 14px 14px 14px",
                 }}
                 onClick={() => this.props.handleAlertClick(alert)}
               >
