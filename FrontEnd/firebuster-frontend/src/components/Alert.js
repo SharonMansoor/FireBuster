@@ -15,7 +15,7 @@ class Alert extends Component {
           </Grid>
           <Grid item md={7}>
             <Typography style={{ fontWeight: "600" }}>Time</Typography>
-            <Typography>{this.props.alert.time}</Typography>
+            <Typography>{(new Date(this.props.alert.time)).toLocaleString('en-GB')}</Typography>
           </Grid>
           <Grid item md={5}>
             <Typography style={{ fontWeight: "600" }}>Probability</Typography>

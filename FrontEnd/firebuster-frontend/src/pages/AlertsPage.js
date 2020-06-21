@@ -4,15 +4,24 @@ import AlertsBar from '../components/AlertsBar/AlertsBar';
 import alerts from "../TempData/Alerts";
 import MapAlerts from "../components/MapAlerts";
 
-
-
 class AlertsPage extends Component {
   constructor() {
     super();
     this.state = {
-      currAlert: ''
+      isFetching: true,
+      currAlert: '',
+      alerts: []
     };
     this.handleAlertClick = this.handleAlertClick.bind(this)
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:3000/getallalerts")
+    .then(response => response.json())
+    .then(data => this.setState({...this.state,
+      isFetching: false,
+      alerts: data
+  }));
   }
 
   handleAlertClick(alert) {
@@ -24,13 +33,15 @@ class AlertsPage extends Component {
 }
 
   render() {
+    console.log(this.state.isFetching)
+    console.log(this.state.alerts);
     return (
         <Grid container direction="row" alignItems="stretch" style={{height: 'calc(100vh - 64px)'}}>
           <Grid item md={3} style={{overflowY: 'auto', height: '100%',  backgroundColor: "#eeeeee"}}>
-            <AlertsBar alerts={alerts} currAlert={this.state.currAlert}   handleAlertClick={this.handleAlertClick}/>
+            <AlertsBar alerts={this.state.alerts} currAlert={this.state.currAlert} isFetching={this.state.isFetching}  handleAlertClick={this.handleAlertClick}/>
           </Grid>
           <Grid item md={9}>
-            <MapAlerts alerts={alerts}  currAlert={this.state.currAlert}/>
+            <MapAlerts alerts={this.state.alerts}  currAlert={this.state.currAlert} isFetching={this.state.isFetching}/>
           </Grid>
         </Grid>
     );

@@ -8,14 +8,16 @@ class AlertsBar extends Component {
     return (
       <Box style={{ height: "100%" }}>
         <Grid container>
+          {!this.props.isFetching?
+          <>
           <Typography color='primary' variant='h6' style={{ margin: "15px 15px 0px 15px" }}>
             {this.props.alerts.length!==0? 'Number of alerts: ' + this.props.alerts.length : 'There are no alerts found'}
           </Typography>
           {this.props.alerts.map((alert) => (
-            <Grid item key={alert.id}>
+            <Grid item key={alert._id}>
               <Paper
                 className={`alert ${
-                  this.props.currAlert.id === alert.id ? "selectedAlert" : null
+                  this.props.currAlert._id === alert._id ? "selectedAlert" : null
                 }`}
                 elevation={3}
                 style={{
@@ -28,7 +30,8 @@ class AlertsBar extends Component {
                 <Alert alert={alert} />
               </Paper>
             </Grid>
-          ))}
+          ))} </>:
+            'loading'  }
         </Grid>
       </Box>
     );
