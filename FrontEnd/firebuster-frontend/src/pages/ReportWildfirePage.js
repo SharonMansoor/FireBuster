@@ -8,7 +8,7 @@ class ReportWildFirePage extends Component {
     super();
     this.state = {
       location: "",
-      intensity: "",
+      severity: "",
       cause: "",
       moreInfo: "",
     };

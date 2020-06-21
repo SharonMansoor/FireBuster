@@ -20,30 +20,24 @@ function Alert(props) {
 
 const severities = [
   {
-    value: "1",
     label: "Low",
   },
   {
-    value: "2",
     label: "Moderate",
   },
   {
-    value: "3",
     label: "High",
   },
 ];
 
 const causes = [
   {
-    value: "1",
     label: "Extreme Weather",
   },
   {
-    value: "2",
     label: "Human Cause",
   },
   {
-    value: "3",
     label: "Unknown",
   },
 ];
@@ -104,13 +98,13 @@ class ReportFireForm extends Component {
               <FormControl fullWidth>
                 <InputLabel id="intensityLabel">Intensity</InputLabel>
                 <Select
-                  value={this.props.state.intensity}
-                  name="intensity"
+                  value={this.props.state.severity}
+                  name="severity"
                   onChange={this.props.handleChange}
                   labelId="intensityLabel"
                 >
                   {severities.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.label} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}
@@ -127,7 +121,7 @@ class ReportFireForm extends Component {
                   labelId="causeLabel"
                 >
                   {causes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.label} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}
