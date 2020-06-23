@@ -18,7 +18,12 @@ class AlertsPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/getallalerts")
+    this.loadAlertsData();
+    setInterval(this.loadAlertsData.bind(this), 30000);
+  }
+
+  async loadAlertsData(){
+    await fetch("http://localhost:3000/getallalerts")
       .then((response) => response.json())
       .then((data) =>
         this.setState({ ...this.state, isFetching: false, alerts: data })
