@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Map, Marker, GoogleApiWrapper, Polygon } from "google-maps-react";
 
+const defaultLocation = {
+  lat: 39.806609,
+  lng: -98.340494,
+};
+
 export class MapReport extends Component {
   calcLat = (lat) => {
     return parseFloat(lat) + (1 / 111) * 2.5;
@@ -15,11 +20,8 @@ export class MapReport extends Component {
       <div style={{ height: "calc(100vh - 64px)", position: "relative" }}>
         <Map
           google={this.props.google}
-          zoom={11}
-          initialCenter={{
-            lat: 32.736029,
-            lng: 35.058554,
-          }}
+          zoom={5}
+          initialCenter={defaultLocation}
           onClick={this.props.handleMapClick}
         >
           {this.props.location && (

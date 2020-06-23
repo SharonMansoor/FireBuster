@@ -8,41 +8,68 @@ import {
   FormControl,
   Grid,
   Fab,
+  Snackbar,
 } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
+import MuiAlert from "@material-ui/lab/Alert";
+import AddIcon from "@material-ui/icons/Add";
+import Axios from "axios";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const severities = [
   {
-    value: "1",
     label: "Low",
   },
   {
-    value: "2",
     label: "Moderate",
   },
   {
-    value: "3",
     label: "High",
   },
 ];
 
 const causes = [
   {
-    value: "1",
     label: "Extreme Weather",
   },
   {
-    value: "2",
     label: "Human Cause",
   },
   {
-    value: "3",
     label: "Unknown",
   },
 ];
 
 class ReportFireForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      successAlert: false,
+      errorAlert: false
+    };
+  }
 
+  handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({...this.state, successAlert: false});
+    this.setState({...this.state, errorAlert: false});
+  };
+
+  submitForm = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3000/postNewAlert", this.props.state)
+      .then((response) => {
+        if (response.data === "Success") {
+          
+          this.setState({...this.state, successAlert: true});
+        }
+      })
+      .catch((error) => this.setState({...this.state, errorAlert: true}));
+  };
 
   render() {
     return (
@@ -51,27 +78,33 @@ class ReportFireForm extends Component {
           <Grid container spacing={3}>
             <Grid item md={12}>
               <TextField
-                value={this.props.state.location? this.props.state.location.lat + ', ' + this.props.state.location.lng : null}
+                value={
+                  this.props.state.location
+                    ? this.props.state.location.lat +
+                      ", " +
+                      this.props.state.location.lng
+                    : null
+                }
                 name="location"
                 onChange={this.props.handleChange}
                 label="Location"
                 fullWidth
                 placeholder="Choose from map"
                 disabled
-                InputLabelProps={{shrink: 'true'}}
+                InputLabelProps={{ shrink: "true" }}
               />
             </Grid>
             <Grid item md={12}>
               <FormControl fullWidth>
                 <InputLabel id="intensityLabel">Intensity</InputLabel>
                 <Select
-                  value={this.props.state.intensity}
-                  name="intensity"
+                  value={this.props.state.severity}
+                  name="severity"
                   onChange={this.props.handleChange}
                   labelId="intensityLabel"
                 >
                   {severities.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.label} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}
@@ -88,7 +121,7 @@ class ReportFireForm extends Component {
                   labelId="causeLabel"
                 >
                   {causes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.label} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}
@@ -96,15 +129,52 @@ class ReportFireForm extends Component {
               </FormControl>
             </Grid>
             <Grid item md={12}>
-              <TextField multiline label="More Information" fullWidth onChange={this.props.handleChange}/>
+              <TextField
+                multiline
+                label="More Information"
+                name="moreInfo"
+                fullWidth
+                onChange={this.props.handleChange}
+              />
             </Grid>
             <Grid item md={12}>
-            <Fab color='secondary' size='medium' style={{float:'right'}}>
-              <AddIcon/>
-          </Fab>
+              <Fab
+                color="secondary"
+                size="medium"
+                style={{ float: "right" }}
+                onClick={this.submitForm}
+              >
+                <AddIcon />
+              </Fab>
             </Grid>
           </Grid>
         </form>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          open={this.state.successAlert}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackBar}
+        >
+          <Alert onClose={this.handleCloseSnackBar} severity="success">
+            Reported Wildfire successfully
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          open={this.state.errorAlert}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackBar}
+        >
+          <Alert onClose={this.handleCloseSnackBar} severity="error">
+            Somthing went wrong, Please try again
+          </Alert>
+        </Snackbar>
       </Box>
     );
   }
