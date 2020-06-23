@@ -24,7 +24,6 @@ class ReportWildFirePage extends Component {
   }
 
   handleMapClick(t, map, coord){
-    console.log(coord.latLng.lat());
     const newLocation ={
       lat: coord.latLng.lat().toFixed(6),
       lng: coord.latLng.lng().toFixed(6)

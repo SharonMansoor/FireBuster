@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, Marker, GoogleApiWrapper, Polygon } from "google-maps-react";
+import "../index.css";
 
 const defaultLocation = {
   lat: 39.806609,
@@ -64,12 +65,19 @@ export class MapAlerts extends Component {
 
             {this.props.alerts.map((alert) => (
               <Marker
-                key={alert._id}
+                key={alert._id + '?highlighted=' + (this.props.hoverAlert._id === alert._id)}
                 position={alert.location}
-                onClick={this.onMarkerClick}
+                onClick={()=>this.props.handleAlertClick(alert)}
+                onMouseover={()=>this.props.handleAlertHover(alert)}
+                onMouseout={()=>this.props.handleAlertHoverOut()}
                 icon="..\images\fireAlert.png"
+                animation={
+                  this.props.hoverAlert._id === alert._id ? this.props.google.maps.Animation.BOUNCE : ""}
+                  
+                  
               />
-            ))}
+            ))
+            }
           </Map>
         ) : (
           "loading"

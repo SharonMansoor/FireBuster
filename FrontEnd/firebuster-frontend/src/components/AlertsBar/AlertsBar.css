@@ -11,3 +11,9 @@
 .alert{
     cursor: pointer;
 }
+
+.hoverAlert{
+    border-color: #ffca00;
+    border-width: 1.5px;
+    border-style: solid;
+}

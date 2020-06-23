@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Box, Paper, Grid, Typography } from "@material-ui/core";
 import Alert from "../Alert";
 import "./AlertsBar.css";
+import "../../index.css";
 
 class AlertsBar extends Component {
   render() {
@@ -18,6 +19,8 @@ class AlertsBar extends Component {
               <Paper
                 className={`alert ${
                   this.props.currAlert._id === alert._id ? "selectedAlert" : null
+                } ${
+                  this.props.hoverAlert._id === alert._id ? "hoverAlert hvr-bob" : null
                 }`}
                 elevation={3}
                 style={{
@@ -25,7 +28,9 @@ class AlertsBar extends Component {
                   padding: "5px",
                   margin: "0px 14px 14px 14px",
                 }}
-                onClick={() => this.props.handleAlertClick(alert)}
+                onClick={()=>this.props.handleAlertClick(alert)}
+                onPointerEnter={()=>this.props.handleAlertHover(alert)}
+                onPointerLeave={()=>this.props.handleAlertHoverOut()}
               >
                 <Alert alert={alert} />
               </Paper>
