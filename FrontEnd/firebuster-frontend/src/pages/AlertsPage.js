@@ -19,7 +19,7 @@ class AlertsPage extends Component {
 
   componentDidMount() {
     this.loadAlertsData();
-    this.intervalAPI = setInterval(this.loadAlertsData.bind(this), 30000);
+    this.intervalAPI = setInterval(this.loadAlertsData.bind(this), 10000);
   }
 
   async loadAlertsData(){
