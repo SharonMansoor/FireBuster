@@ -20,25 +20,25 @@ function Alert(props) {
 
 const severities = [
   {
-    label: "Low",
+    label: "low",
   },
   {
-    label: "Moderate",
+    label: "moderate",
   },
   {
-    label: "High",
+    label: "high",
   },
 ];
 
 const causes = [
   {
-    label: "Extreme Weather",
+    label: "extreme Weather",
   },
   {
-    label: "Human Cause",
+    label: "human Cause",
   },
   {
-    label: "Unknown",
+    label: "unknown",
   },
 ];
 
@@ -61,7 +61,7 @@ class ReportFireForm extends Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3000/postNewAlert", this.props.state)
+    Axios.post("/postNewAlert", this.props.state)
       .then((response) => {
         if (response.data === "Success") {
           
