@@ -20,13 +20,12 @@ function App() {
           </Typography>
             <Button color="inherit" style={{marginLeft: '30px'}} href={"/"}>Alerts</Button>
             <Button color="inherit" style={{marginLeft: '30px'}} href={"/ReportWildfire"}>Report Wildfire</Button>
-            <Button color="inherit" style={{marginLeft: '30px'}} href={"/Statistics"}>Statistics</Button>
+           
         </Toolbar>
       </AppBar>
       <Switch>
         <Route exact path="/" component={AlertsPage} />
         <Route path="/ReportWildfire" component={ReportWildFirePage} />
-        <Route path="/Statistics" component={StatisticsPage} />
       </Switch>
     </Router>
     </ThemeProvider>
