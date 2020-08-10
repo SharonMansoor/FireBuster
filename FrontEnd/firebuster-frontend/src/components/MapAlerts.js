@@ -34,7 +34,7 @@ export class MapAlerts extends Component {
                 : defaultLocation
             }
           >
-            {this.props.alerts.map((alert) => (
+            {this.props.filterAlerts.map((alert) => (
               <Polygon
                 key={alert._id}
                 paths={[
@@ -63,7 +63,7 @@ export class MapAlerts extends Component {
               />
             ))}
 
-            {this.props.alerts.map((alert) => (
+            {this.props.filterAlerts.map((alert) => (
               <Marker
                 key={alert._id + '?highlighted=' + (this.props.hoverAlert._id === alert._id)}
                 position={alert.location}

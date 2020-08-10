@@ -1,64 +1,60 @@
-import React, { Component } from "react";
+import React, { Component, useState, useRef, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import AlertsBar from "../components/AlertsBar/AlertsBar";
 import MapAlerts from "../components/MapAlerts";
 
-class AlertsPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isFetching: true,
-      currAlert: "",
-      alerts: [],
-      hoverAlert: "",
-    };
-    this.handleAlertClick = this.handleAlertClick.bind(this);
-    this.handleAlertHover = this.handleAlertHover.bind(this);
-    this.handleAlertHoverOut = this.handleAlertHoverOut.bind(this);
-  }
+function AlertsPage () {
+  const [state, setState] = useState({
+    isFetching: true,
+    currAlert: "",
+    alerts: [],
+    filterAlerts: [],
+    hoverAlert: "",
+    severityFilter: 'high'
+  });
 
-  componentDidMount() {
-    this.loadAlertsData();
-    this.intervalAPI = setInterval(this.loadAlertsData.bind(this), 10000);
-  }
+  const intervalAPI = useRef();
+  
+  useEffect(() => {
+    loadAlertsData();
+  }, []);  
 
-  async loadAlertsData(){
-    await fetch("http://localhost:3000/getallalerts")
+  useEffect(() => {
+    console.log(state.severityFilter)
+    setState({...state, filterAlerts: state.alerts.filter(alert=> alert.severity === state.severityFilter)})
+  }, [state.severityFilter, state.alerts])
+  
+
+  const loadAlertsData = () =>{
+    setState({...state, isFetching: true});
+    fetch("/getallalerts")
       .then((response) => response.json())
       .then((data) =>
-        this.setState({ ...this.state, isFetching: false, alerts: data })
+        setState({ ...state, isFetching: false, alerts: data, filterAlerts: data })
       );
   }
 
-  componentWillUnmount() {
-    clearInterval(this.intervalAPI);
+  const handleAlertConfimed = (alertID) => {    
+    const modifiedAlerts = state.alerts.map((alert) =>(alert._id === alertID? {...alert, confirmed: true}: alert));
+    setState({...state, alerts: modifiedAlerts});
   }
 
-  handleAlertClick(alert) {
-    this.setState(() => {
-      return {
-        currAlert: alert,
-      };
-    });
+  const handleAlertClick= (alert) => {
+    setState({...state, currAlert: alert});
   }
 
-  handleAlertHover(alert) {
-    this.setState(() => {
-      return {
-        hoverAlert: alert,
-      };
-    });
+  const handleAlertHover = (alert) => {
+    setState({...state, hoverAlert: alert});
   }
 
-  handleAlertHoverOut() {
-    this.setState(() => {
-      return {
-        hoverAlert: "",
-      };
-    });
+  const handleAlertHoverOut = () => {
+    setState({...state, hoverAlert: ""});
   }
 
-  render() {
+  const setSeverityFilter = (e) => {
+    setState({...state, severityFilter: e.target.value});
+  }
+
     return (
       <Grid
         container
@@ -70,19 +66,18 @@ class AlertsPage extends Component {
           item
           md={3}
           style={{
-            overflowY: "auto",
+
             height: "100%",
             backgroundColor: "#eeeeee",
           }}
         >
-          <AlertsBar {...this.state} handleAlertClick={this.handleAlertClick} handleAlertHover={this.handleAlertHover} handleAlertHoverOut={this.handleAlertHoverOut}  />
+          <AlertsBar {...state} loadAlertsData={loadAlertsData} handleAlertConfimed={handleAlertConfimed} setSeverityFilter={setSeverityFilter} handleAlertClick={handleAlertClick} handleAlertHover={handleAlertHover} handleAlertHoverOut={handleAlertHoverOut}  />
         </Grid>
         <Grid item md={9}>
-          <MapAlerts {...this.state} handleAlertClick={this.handleAlertClick} handleAlertHover={this.handleAlertHover} handleAlertHoverOut={this.handleAlertHoverOut} />
+          <MapAlerts {...state} handleAlertClick={handleAlertClick} handleAlertHover={handleAlertHover} handleAlertHoverOut={handleAlertHoverOut} />
         </Grid>
       </Grid>
     );
-  }
 }
 
 export default AlertsPage;
